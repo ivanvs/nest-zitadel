@@ -1,0 +1,10 @@
+{
+  "git": {
+    "commitMessage": "${version}",
+    "commitArgs": ["-S"],
+    "tagArgs": ["-s"]
+  },
+  "hooks": {
+    "after:bump": ["npm run clean", "npm run build"]
+  }
+}
