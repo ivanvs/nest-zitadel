@@ -90,4 +90,4 @@ export class UsersController {
 
 # License
 
-react-twitter-auth is released under [MIT License](https://opensource.org/licenses/MIT).
+nest-zitadel is released under [MIT License](https://opensource.org/licenses/MIT).
