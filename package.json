@@ -1,6 +1,6 @@
 {
   "name": "nest-zitadel",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Nest.js module that setup authentication with Zitadel for Nest.js application",
   "author": "Ivan Vasiljevic",
   "private": false,
