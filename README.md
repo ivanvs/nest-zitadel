@@ -5,7 +5,9 @@
 ![npm](https://img.shields.io/npm/dw/nest-zitadel)
 ![npm](https://img.shields.io/npm/dt/nest-zitadel)
 
-> The Passport strategy module for ZITADEL (v2)
+> Nest.js module that setup authentication with Zitadel for Nest.js application
+
+This library is higly inspired by [https://github.com/ehwplus/zitadel-nodejs-nestjs](https://github.com/ehwplus/zitadel-nodejs-nestjs)
 
 ## Installation
 
@@ -33,6 +35,8 @@ ZitadelAuthModule.forRoot({
     }),
 ```
 
+Registering the module with configuration from `ConfigurationService`:
+
 ```typescript
 ZitadelAuthModule.forRootAsync({
       imports: [ConfigModule],
@@ -55,12 +59,33 @@ ZitadelAuthModule.forRootAsync({
     }),
 ```
 
-### Guards
+## Guards
+
+Register any of the guards either globally, or scoped in your controller.
+
+By default, it will throw a 401 unauthorized when it is unable to verify the JWT token or Bearer header is missing.
 
 ```typescript
 @Controller('cats')
 @UseGuards(ZitadelAuthGuard)
 export class CatsController {}
+```
+
+## Decorators
+
+### ZitadelAuthGuard
+
+Retrieves the current Zitadel logged-in user.
+
+```typescript
+@Controller('users')
+@UseGuards(ZitadelAuthGuard)
+export class UsersController {
+  @Get()
+  getCurrentUser(@AuthenticatedUser() user: ZitadelUser) {
+    return user;
+  }
+}
 ```
 
 # License
