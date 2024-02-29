@@ -1,5 +1,4 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { extractRequest } from '../util';
 import { ZitadelUser } from '../interfaces';
 
 /**
@@ -7,7 +6,7 @@ import { ZitadelUser } from '../interfaces';
  */
 export const AuthenticatedUser = createParamDecorator(
   (data: unknown, ctx: ExecutionContext): ZitadelUser => {
-    const [req] = extractRequest(ctx);
-    return req.user as ZitadelUser;
+    const request = ctx.switchToHttp().getRequest();
+    return request.user;
   },
 );
