@@ -1,10 +1,12 @@
 import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import {
+  RolesGuard,
   AuthenticatedUser,
   Public,
   ZitadelAuthGuard,
   ZitadelUser,
+  Roles,
 } from 'nest-zitadel';
 
 @UseGuards(ZitadelAuthGuard)
@@ -31,5 +33,13 @@ export class AppController {
   @UseGuards(ZitadelAuthGuard)
   getCurrentUser(@AuthenticatedUser() user: ZitadelUser): ZitadelUser {
     return user;
+  }
+
+  @Roles('super-user')
+  @Get('protected/roles')
+  @UseGuards(RolesGuard)
+  getProtectedHelloWithRoles(): string {
+    this.logger.log('Requesting role protected hello');
+    return this.appService.getHello();
   }
 }
