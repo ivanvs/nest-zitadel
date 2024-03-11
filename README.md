@@ -63,12 +63,28 @@ ZitadelAuthModule.forRootAsync({
 
 Register any of the guards either globally, or scoped in your controller.
 
+### ZitadelAuthGuard
+
 By default, it will throw a 401 unauthorized when it is unable to verify the JWT token or Bearer header is missing.
 
 ```typescript
 @Controller('cats')
 @UseGuards(ZitadelAuthGuard)
 export class CatsController {}
+```
+
+### RolesGuard
+
+Check if user has role that is put in `@Roles` decorator
+
+```typescript
+@Roles('super-user')
+@Get('protected/roles')
+@UseGuards(ZitadelAuthGuard, RolesGuard)
+getProtectedHelloWithRoles(): string {
+  this.logger.log('Requesting role protected hello');
+  return this.appService.getHello();
+}
 ```
 
 ## Decorators
